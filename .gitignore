@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,python,c++,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,python,c++,visualstudiocode
 
+.idea/
+.vscode/
+CMakeLists.txt
+
 ### C++ ###
 # Prerequisites
 *.d
