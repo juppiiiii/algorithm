@@ -30,8 +30,9 @@ int main() {
             continue;
         }
 
-        k -= coins[idx];
-        cnt++;
+        int times = k / coins[idx];
+        k -= coins[idx] * times ;
+        cnt += times;
     }
     cout << cnt;
 
