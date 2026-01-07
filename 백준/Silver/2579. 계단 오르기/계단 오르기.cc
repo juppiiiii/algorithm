@@ -13,39 +13,29 @@ int main() {
     cin >> n;
 
     vector<int> stairs;
-    stairs.push_back(0);
     while (n--) {
         cin >> tmp;
         stairs.push_back(tmp);
     }
 
-    vector<int> cache = vector<int>(stairs.size(), 0);
-
-    if (stairs.size() == 2) {
-        cout << stairs[1];
+    if (stairs.size() == 1) {
+        cout << stairs[0];
         return 0;
     }
 
+    // cache[i][j] = 현재까지 j개의 계단을 연속해서 밟고 i번째 계단까지 올라섰을 때 점수 합의 최댓 값
+    vector<vector<int>> cache(stairs.size(), vector<int>(3, 0));
 
-    if (stairs.size() == 3) {
-        cout << stairs[1] + stairs[2];
-        return 0;
+    cache[0][1] = stairs[0];
+    cache[1][1] = stairs[1];
+    cache[1][2] = stairs[0] + stairs[1];
+
+    for (int i = 2; i < stairs.size(); i++) {
+        cache[i][1] = max(cache[i - 2][1], cache[i - 2][2]) + stairs[i];
+        cache[i][2] = cache[i - 1][1] + stairs[i];
     }
 
+    cout << max(cache[stairs.size() - 1][1], cache[stairs.size() - 1][2]);
 
-    cache[1] = stairs[1], cache[2] = stairs[1] + stairs[2], cache[3] = max(stairs[1], stairs[2]) + stairs[3];
-    for (int i = 4; i < stairs.size(); i++) {
-        cache[i] = max(stairs[i] + stairs[i - 1] + cache[i - 3], stairs[i] + cache[i - 2]);
-    }
-
-    // for (int& stair : stairs) {
-    //     printf("%d ", stair);
-    // }
-    // cout << endl;
-    // for (int& i : cache) {
-    //     printf("%d ", i);
-    // }
-
-    cout << cache[stairs.size() - 1];
     return 0;
 }
